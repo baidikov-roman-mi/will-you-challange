@@ -1,7 +1,10 @@
+import Player from "./components/Player.tsx"
+
 function App() {
   return (
     <>
-     Lets begin . . .
+      <Player />
+      <div id="challenges"></div>
     </>
   )
 }
