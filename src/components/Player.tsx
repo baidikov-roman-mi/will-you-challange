@@ -1,6 +1,6 @@
 import { useState, useRef } from "react"
 
-export default function Player() {
+const Player = () => {
   const playerNameRef = useRef<HTMLInputElement>(null)
 
   const [playerName, setPlayerName] = useState<string | undefined>()
@@ -21,3 +21,5 @@ export default function Player() {
     </section>
   )
 }
+
+export default Player
