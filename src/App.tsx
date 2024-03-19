@@ -14,8 +14,12 @@ const App = () => {
     <>
       <Player />
       <div id="challenges">
-        {challenges.map((challenge) => (
-          <TimerChallenge title={challenge.title} targetTime={challenge.time} />
+        {challenges.map((challenge, index) => (
+          <TimerChallenge
+            key={index}
+            title={challenge.title}
+            targetTime={challenge.time}
+          />
         ))}
       </div>
     </>
