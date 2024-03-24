@@ -3,7 +3,7 @@
 $primary-color: #54a399;
 $secondary-color: #46cebe;
 $background-color: #242424;
-$text-color: #e1eeeb;
+$text-color: #1f2927;
 $accent-color: #4df8df;
 
 * {
@@ -181,6 +181,7 @@ header p {
   border-radius: 8px;
   padding: 2rem;
   background-color: #d7fcf8;
+  color: $text-color;
 
   &[open] {
     animation: slide-in-from-top 0.35s ease-out;

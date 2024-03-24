@@ -1,4 +1,5 @@
 import { useState, useRef } from "react"
+import ResultModal from "./ResultModal.tsx"
 
 interface Props {
   title: string
@@ -7,6 +8,7 @@ interface Props {
 
 const TimerChallenge = ({ title, targetTime }: Props) => {
   const timer = useRef<number>()
+  const dialog = useRef<HTMLDialogElement>(null) // Change this line
 
   const [timerStarted, setTimerStarted] = useState(false)
   const [timerExpired, setTimerExpired] = useState(false)
@@ -14,6 +16,9 @@ const TimerChallenge = ({ title, targetTime }: Props) => {
   function handleStart() {
     timer.current = setTimeout(() => {
       setTimerExpired(true)
+      if (dialog.current) {
+        dialog.current.showModal()
+      }
     }, targetTime * 1000)
 
     setTimerStarted(true)
@@ -25,9 +30,9 @@ const TimerChallenge = ({ title, targetTime }: Props) => {
 
   return (
     <>
+      {timerExpired && <ResultModal ref={dialog} targetTime={targetTime} result={"lost"} />}
       <section className="challenge">
         <h2>{title}</h2>
-        {timerExpired && <p>You lost!</p>}
         <p className="challenge-time">
           {targetTime} second{targetTime > 1 ? "s" : ""}
         </p>
@@ -36,7 +41,7 @@ const TimerChallenge = ({ title, targetTime }: Props) => {
             {timerStarted ? "Stop" : "Start"} Challenge
           </button>
         </p>
-        <p>{timerStarted ? "Time is runnind... Do you fill this?" : "Timer inactive"}</p>
+        <p>{timerStarted ? "Time is running... Do you feel this?" : "Timer inactive"}</p>
       </section>
     </>
   )
