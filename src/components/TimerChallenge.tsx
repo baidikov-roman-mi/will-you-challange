@@ -1,4 +1,5 @@
 import { useState, useRef } from "react"
+
 import ResultModal from "./ResultModal.tsx"
 
 interface Props {
@@ -6,9 +7,9 @@ interface Props {
   targetTime: number
 }
 
-const TimerChallenge = ({ title, targetTime }: Props) => {
+export default function TimerChallenge({ title, targetTime }: Props) {
   const timer = useRef<number>()
-  const dialog = useRef<HTMLDialogElement>(null) // Change this line
+  const dialog = useRef<HTMLDialogElement | null>(null)
 
   const [timerStarted, setTimerStarted] = useState(false)
   const [timerExpired, setTimerExpired] = useState(false)
@@ -16,6 +17,8 @@ const TimerChallenge = ({ title, targetTime }: Props) => {
   function handleStart() {
     timer.current = setTimeout(() => {
       setTimerExpired(true)
+      console.log("timerExpired :", timerExpired)
+
       if (dialog.current) {
         dialog.current.showModal()
       }
@@ -30,7 +33,7 @@ const TimerChallenge = ({ title, targetTime }: Props) => {
 
   return (
     <>
-      {timerExpired && <ResultModal ref={dialog} targetTime={targetTime} result={"lost"} />}
+      <ResultModal ref={dialog} targetTime={targetTime} result="lost" />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
@@ -41,10 +44,10 @@ const TimerChallenge = ({ title, targetTime }: Props) => {
             {timerStarted ? "Stop" : "Start"} Challenge
           </button>
         </p>
-        <p>{timerStarted ? "Time is running... Do you feel this?" : "Timer inactive"}</p>
+        <p className={timerStarted ? "active" : undefined}>
+          {timerStarted ? "Time is running... Do you fill it?" : "Timer inactive"}
+        </p>
       </section>
     </>
   )
 }
-
-export default TimerChallenge
